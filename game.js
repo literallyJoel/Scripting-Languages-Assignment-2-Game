@@ -26,8 +26,8 @@ function setupTable() {
         }
         tbody.appendChild(tr);
     }
-
-
+    document.getElementById('game').appendChild(table);
+}
     //Runs when you click on a cell
     function cellClick(cell) {
         //Checks if the cell already contains an object.
@@ -88,11 +88,7 @@ function setupTable() {
         return (cell.innerHTML.includes("<img src"));
     }
 
-    function beginGame(){
-        if(!shipPlaced){
-            alert("You must place a User Ship before beginning the game!")
-        }
-    }
+
 
     function getCellType(cell){
         let data = cell.innerHTML;
@@ -110,7 +106,11 @@ function setupTable() {
         }
     }
 
-    document.getElementById('game').appendChild(table);
-}
 
+
+function beginGame(){
+    if(!shipPlaced){
+        alert("You must place a User Ship before beginning the game!")
+    }
+}
 
