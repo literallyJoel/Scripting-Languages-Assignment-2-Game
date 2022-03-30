@@ -1,5 +1,6 @@
 table, tr, td, th {
-    border: 1px solid;
+    border: 1px solid white;
+    border-collapse: collapse;
 }
 
 table {
@@ -26,7 +27,7 @@ td, tr, th {
     padding-top: 3rem;
 }
 
-.focus {
+table tr.focus {
     border-color: darkred;
 }
 
@@ -50,14 +51,13 @@ button:active{
     background-color: #BBBBBB;
     border-color: #BBBBBB;
 }
-
 body{
-    background: linear-gradient(139deg, #fe01ff, #660c78, #26347a, #092c6b, #26347a, #660c78, #fe01ff);
-    background-size: 1400% 1400%;
+    background: linear-gradient(139deg, #000000,#000000,#660c78,#3E0141,#26347a, #092c6b, #000000, #000000);
+    background-size: 1200% 1200%;
 
-    -webkit-animation: bgGradient 100s ease infinite;
-    -moz-animation: bgGradient 100s ease infinite;
-    animation: bgGradient 100s ease infinite;
+    -webkit-animation: bgGradient 200s ease infinite;
+    -moz-animation: bgGradient 200s ease infinite;
+    animation: bgGradient 200s ease infinite;
 }
 
 @-webkit-keyframes bgGradient {
@@ -75,14 +75,3 @@ body{
     50%{background-position:87% 100%}
     100%{background-position:14% 0%}
 }
-/*@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}*/
