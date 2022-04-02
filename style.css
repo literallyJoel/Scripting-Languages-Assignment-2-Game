@@ -1,3 +1,5 @@
+/*Doing 100% adds an unnecessary scrollbar, so 99% it is.*/
+html,body{height:99%}
 table, tr, td, th {
     border: 1px solid white;
     border-collapse: collapse;
@@ -7,6 +9,7 @@ table {
     table-layout: fixed;
     width: 100%;
     height: 100%;
+    border: 10px solid darkred;
 }
 
 td, tr, th {
@@ -39,18 +42,24 @@ button {
     font-family: 'Montserrat', sans-serif;
     color:#FFFFFF;
     transition: all 0.15s;
+    cursor: pointer;
+
 }
 
-button:hover{
-    mix-blend-mode: screen;
+.controlButton:hover {
+
 
     background-color: white;
+    color: black;
+    font-weight: bold;
 }
 
-button:active{
+.controlButton:active{
     background-color: #BBBBBB;
     border-color: #BBBBBB;
 }
+
+/*Defines the gradient to be used for the background*/
 body{
     background: linear-gradient(139deg, #000000,#000000,#660c78,#3E0141,#26347a, #092c6b, #000000, #000000);
     background-size: 1200% 1200%;
@@ -60,6 +69,7 @@ body{
     animation: bgGradient 200s ease infinite;
 }
 
+/*Does the gradient animation for various different rendering engines*/
 @-webkit-keyframes bgGradient {
     0%{background-position:14% 0%}
     50%{background-position:87% 100%}
@@ -74,4 +84,94 @@ body{
     0%{background-position:14% 0%}
     50%{background-position:87% 100%}
     100%{background-position:14% 0%}
+}
+
+/*Defines the style for the help modal*/
+.helpModal{
+    background-color: rgba(82, 82, 82, 0.98);
+    display: none;
+    border-radius:5px;
+    width: 75%;
+    margin: auto;
+    z-index:10;
+    position:absolute;
+    top:5%;
+    left:12.5%;
+    color:white;
+    font-family:'Montserrat', serif;
+
+}
+
+
+/*This uses CSS built in backdrop feature if its supported as it looks way nicer*/
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)){
+    .helpModal{
+        background-color: rgba(82, 82, 82, 0.65);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        filter:none;
+    }
+}
+
+.helpText{
+    filter:blur(0);
+    padding-left:1rem;
+}
+
+.modalTitle{
+    margin-top:1rem;
+    font-family: 'Montserrat', sans-serif;
+    color:white;
+    text-align: center;
+
+}
+
+.no-border{
+    border-bottom-width: 0;
+    border-top-width:0;
+}
+.close {
+    float: right;
+    color: darkred;
+    font-size: 30px;
+    font-weight: bold;
+    margin-right:1rem;
+
+
+}
+
+.helpInfo {
+    z-index: 10;
+    filter: blur(0);
+}
+.close:hover{
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+.close:focus {
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#statText{
+    text-align:left;
+    display:none;
+}
+
+#endButton{
+    display:none;
+}
+
+.helpImage{
+    height:60px;
+    vertical-align:middle;
+    padding-left:1rem;
+}
+
+#pageTurnButton{
+    float: right;
+    margin: 0 1rem 1rem 0;
+    filter:blur(0);
 }

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en-gb">
 <head>
     <title>Game!</title>
@@ -13,9 +14,48 @@
 </div>
 
 <div class="control">
-    <button onclick="beginGame()">Begin Game.</button>
+    <!--We're using a button here because it makes formatting way easier, even though we don't need it to act as a button
+        We can just leave it empty, the text gets set in code-->
+    <button id="statText" disabled></button>
+    <button id="beginButton" class="controlButton" onclick="beginGame()">Begin Game</button>
+    <button class="controlButton" onclick="openHelp()">Help</button>
+    <button id="endButton" class="controlButton" onclick="endGame('Player ended game')">End Game</button>
 </div>
 
+<div id="helpModal" class="helpModal blur">
+    <div class="helpInfo">
+        <span class="close" onclick="closeHelp();">&times;</span>
+        <div class="modalTitle">How to Play</div>
+        <div class="helpText">
+            <p>Objects on the Board</p>
 
+            <p><img class="helpImage" alt="Inactive Mine" src="/images/m.png"/>&emsp13;This is an inactive mine. Activate all of
+                these to destroy Robot Ships and win the game!</p>
+            <hr/>
+            <p>&nbsp;</p>
+
+            <p><img class="helpImage" alt="Activated Mine" src="/images/am.png"/>&emsp13;This is an activated mine. These will
+                destroy asteroids and robot ships in the surrounding cells!</p>
+            <hr/>
+            <p>&nbsp;</p>
+
+            <p><img class="helpImage" alt="Robot Ship" src="/images/r.png"/>&emsp13;This is a robot ship. They can move
+                diagonally, and if they catch you, you'll lose!</p>
+            <hr/>
+            <p>&nbsp;</p>
+
+            <p><img class="helpImage" alt="Asteroid" src="/images/a.png"/>&emsp13;This is an asteroid. You can't move into cells
+                with asteroids, and you'll lose a turn if you try! They can also destroy mines!</p>
+            <hr/>
+            <p>&nbsp;</p>
+
+            <p><img class="helpImage" alt="User Ship" src="/images/u.png"/>&emsp13;This is you. You can move with WSAD, and your
+                goal is to destroy all the Robot Ships before the game ends, but don't hit the red laser, or you'll miss a turn! </p>
+            <hr/>
+            <p>&nbsp;</p>
+        </div>
+        <button id="pageTurnButton" class="controlButton" onclick="helpNextPage()">Next Page</button>
+    </div>
+</div>
 </body>
 </html>
