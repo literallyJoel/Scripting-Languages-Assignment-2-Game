@@ -7,7 +7,7 @@ let shipPlaced = false, shipDestroyed = false
 //This keeps track of the player position
 let playerPosition = [0, 0]
 //This keeps track of what round the game is on
-round = 1;
+let round = 1;
 //These define the size of the grid.
 const columnSize = 10, rowSize = 10;
 //Array representation of the board, so we can interact with the elements
