@@ -9,52 +9,153 @@
 
 <body>
 
-<div id="game" class="game">
+<!-- This is used to show the user alerts-->
+<div id="alert"></div>
+<div id="game" class="changeDisplayAtEnd">
     <script>setupTable()</script>
 </div>
 
-<div class="control">
+<div id="endScreen" class="noDisplay changeDisplayAtEnd">
+    <div id="winLoseText"></div>
+
+    <!--All information is set in code-->
+    <div id="endStats">
+    </div>
+
+    <div id="endButtons">
+        <button class="bgFade" onclick="restart();">Restart</button>
+    </div>
+    <div id="totalStats">
+    </div>
+</div>
+
+<div id="controls" class="changeDisplayAtEnd">
     <!--We're using a button here because it makes formatting way easier, even though we don't need it to act as a button
         We can just leave it empty, the text gets set in code-->
     <button id="statText" disabled></button>
-    <button id="beginButton" class="controlButton" onclick="beginGame()">Begin Game</button>
-    <button class="controlButton" onclick="openHelp()">Help</button>
-    <button id="endButton" class="controlButton" onclick="endGame('Player ended game')">End Game</button>
+    <button id="beginButton" class="bgFade" onclick="beginGame()">Begin Game</button>
+    <button class="bgFade" onclick="openHelp()">Help</button>
+    <button id="restartButton" class="bgFade" onclick="restart()">Restart</button>
+    <button id="endButton" class="bgFade noDisplay" onclick="endGame('Player ended game')">End Game</button>
 </div>
 
-<div id="helpModal" class="helpModal blur">
-    <div class="helpInfo">
-        <span class="close" onclick="closeHelp();">&times;</span>
-        <div class="modalTitle">How to Play</div>
-        <div class="helpText">
-            <p>Objects on the Board</p>
+<!--Usually I'd put all this in another file and load it in for display, either using javascript or EJS,
+    but for the sake of the assignment I've kept it all to one file-->
+<div id="helpModal">
+    <!--The extra div here is to help anchor the buttons to the bottom of the helpModal div.
+        This is because in order for the anchoring to work I needed the parent div to have relative positioning,
+        but in order for the help modal to display correctly it needed absolute positioning-->
+    <div style="position:relative; height:100%;">
+        <span id="close" onclick="closeHelp();">&times;</span>
+        <div id="modalTitle">How to Play</div>
+        <div class="helpPage">
+            <div class="helpText">
+                <p>Objects on the Board</p>
+                <hr/>
+                <p><img class="helpImage" alt="Inactive Mine" src="/images/m.png"/>&emsp13;This is an inactive mine.
+                    Activate all of
+                    these to destroy Robot Ships and win the game!</p>
+                <hr/>
+                <p>&nbsp;</p>
 
-            <p><img class="helpImage" alt="Inactive Mine" src="/images/m.png"/>&emsp13;This is an inactive mine. Activate all of
-                these to destroy Robot Ships and win the game!</p>
-            <hr/>
-            <p>&nbsp;</p>
+                <p><img class="helpImage" alt="Activated Mine" src="/images/am.png"/>&emsp13;This is an activated
+                    mine.
+                    These will
+                    destroy asteroids and robot ships in the surrounding cells!</p>
+                <hr/>
+                &nbsp;
 
-            <p><img class="helpImage" alt="Activated Mine" src="/images/am.png"/>&emsp13;This is an activated mine. These will
-                destroy asteroids and robot ships in the surrounding cells!</p>
-            <hr/>
-            <p>&nbsp;</p>
+                <p><img class="helpImage" alt="Robot Ship" src="/images/r.png"/>&emsp13;This is a robot ship. They
+                    can
+                    move
+                    diagonally, and if they catch you, you'll lose!</p>
+                <hr/>
+                &nbsp;
 
-            <p><img class="helpImage" alt="Robot Ship" src="/images/r.png"/>&emsp13;This is a robot ship. They can move
-                diagonally, and if they catch you, you'll lose!</p>
-            <hr/>
-            <p>&nbsp;</p>
-
-            <p><img class="helpImage" alt="Asteroid" src="/images/a.png"/>&emsp13;This is an asteroid. You can't move into cells
-                with asteroids, and you'll lose a turn if you try! They can also destroy mines!</p>
-            <hr/>
-            <p>&nbsp;</p>
-
-            <p><img class="helpImage" alt="User Ship" src="/images/u.png"/>&emsp13;This is you. You can move with WSAD, and your
-                goal is to destroy all the Robot Ships before the game ends, but don't hit the red laser, or you'll miss a turn! </p>
-            <hr/>
-            <p>&nbsp;</p>
+                <p><img class="helpImage" alt="Asteroid" src="/images/a.png"/>&emsp13;This is an asteroid. You can't
+                    move into cells
+                    with asteroids, and you'll lose a turn if you try! They can also destroy mines!</p>
+                <hr/>
+                &nbsp;
+                <p><img class="helpImage" alt="User Ship" src="/images/u.png"/>&emsp13;This is you. You can move
+                    with
+                    WSAD, and your
+                    goal is to destroy all the Robot Ships before the game ends, but don't hit the red laser, or
+                    you'll
+                    miss a turn! </p>
+                <hr/>
+                &nbsp;
+            </div>
         </div>
-        <button id="pageTurnButton" class="controlButton" onclick="helpNextPage()">Next Page</button>
+
+        <div class="helpPage noDisplay">
+            <div class="helpText">
+                <!--I went with a pre tag here rather than individual p tags because in order to achieve
+                    the formatting I wanted some lines ended up using 3-4 &emsp tags, so this seemed neater.
+                     I've left the other page as it was though, as I don't like how the formatting is relative to the
+                     text editor, rather than the pre tag. It seems messier than I'd like.-->
+                <pre>
+Game Mechanics
+<hr/>
+Your goal is to destroy all the robot ships by activating mines and getting robot ships into their range.
+<img class="helpImage" src="/images/mineExample.png" alt="Mine Radius Example">  Any asteroid or robot ship in the shown radius of an activated mine will be destroyed.
+If a robot ship is next to an inactive mine, it will move onto it's space and destroy it, but it will target your ship over the mine.
+If a robot ship gets to your ship, it will destroy it.
+If you try and move your ship into an asteroid or into the red laser, you'll miss a turn.
+
+Ending the game
+<hr/>
+There are 4 ways the game can end
+    1.	All robot ships are destroyed
+    2.	Your ship is destroyed
+    3.	There are no more inactive mines of the board
+    4.	The game is ended with the end button
+
+Winning and losing
+<hr/>
+At the end of the game, there are three possible outcomes
+	Win
+	       If your ship survives, and all robot ships are destroyed, you win.
+	Lose
+	      If your ship survives, and all robot ships are destroyed, you lose.
+	Draw
+	    If your ship survives, but there are still surviving robot ships, or if neither your ship nor any robot ships survive, it's a draw.
+
+                </pre>
+            </div>
+        </div>
+
+        <div class="helpPage noDisplay">
+            <div class="helpText">
+                <p>The Setup Stage</p>
+                <hr/>
+                <p>Before the game begins, you start by setting up the board</p>
+                <p>During the setup stage, you can click on any cell, and press</p>
+                <p>&emsp;A to place and Asteroid</p>
+                <p>&emsp;M to place a Mine</p>
+                <p>&emsp;R to place a Robot Ship</p>
+                <p>&emsp;U to place your ship</p>
+                <p>You can only place one item per cell, and you can only place one user ship.</p>
+                <p>You must place your ship in order to start the game.</p>
+                &nbsp;
+                <p>Controls</p>
+                <hr/>
+                <p>Once the game is in the play stage</p>
+                <p>&emsp; Use W to move your ship up a cell</p>
+                <p>&emsp; Use S to move your ship down a cell</p>
+                <p>&emsp; Use A to move your ship to the left</p>
+                <p>&emsp; Use D to move your ships to the right</p>
+                <p>Robot ships can move diagonally. You can't!</p>
+            </div>
+        </div>
+
+        <div id="pageSelector">
+            <button class="helpPageBtn bgFade" id="helpPrevPageBtn" onclick="helpChangePage(-1)">&laquo;</button>
+            <button class="active helpPageBtn bgFade" onclick="helpChangePage(1)">1</button>
+            <button class="helpPageBtn bgFade" onclick="helpChangePage(2)">2</button>
+            <button class="helpPageBtn bgFade" onclick="helpChangePage(3)">3</button>
+            <button class="helpPageBtn bgFade" onclick=" helpChangePage(-2)">&raquo;</button>
+        </div>
     </div>
 </div>
 </body>
